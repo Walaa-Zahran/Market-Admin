@@ -88,7 +88,7 @@ export class AllProductsComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.base64 = reader.result;
-      this.form.get('image')?.setValue('this.base64');
+      this.form.get('image')?.setValue(this.base64);
       console.log(this.base64);
 
     }
@@ -99,5 +99,20 @@ export class AllProductsComponent implements OnInit {
       console.log('add product done')
     });
     console.log(this.form)
+  }
+  update(item: any) {
+    this.form.get('title')?.setValue(item.title);
+    this.form.get('description')?.setValue(item.description);
+    this.form.get('category')?.setValue(item.category);
+    this.form.get('price')?.setValue(item.price);
+    this.form.get('image')?.setValue(item.image);
+    this.form.patchValue({
+      title: item.title,
+      price: item.price,
+      description: item.description,
+      image: item.image,
+      category: item.category
+    })
+    this.base64 = item.image;
   }
 }

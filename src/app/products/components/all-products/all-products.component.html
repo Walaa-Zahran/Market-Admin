@@ -7,6 +7,7 @@
         <th scope="col">Name</th>
         <th scope="col">Category</th>
         <th scope="col">Price</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -15,6 +16,8 @@
         <td>{{item.title}}</td>
         <td>{{item.category}}</td>
         <td>{{item.price}} L.E</td>
+        <td><button class="btn btn-warning" data-toggle="modal" data-target="#viewCart"
+            (click)="update(item)">Update</button></td>
       </tr>
 
     </tbody>
@@ -42,7 +45,8 @@
               <input type="number" name="" id="" placeholder="price" class="form-control" formControlName="price">
             </div>
             <div class="col-sm">
-              <app-select [data]="categories" [title]="'Categories'" (selectedValue)="getSelectedCategory($event)">
+              <app-select [data]="categories" [all]="false" [title]="'Categories'"
+                (selectedValue)="getSelectedCategory($event)" [select]="form.value.category">
               </app-select>
             </div>
           </div>
@@ -50,7 +54,7 @@
             <div class="col-sm-4">
               <label for="">Image</label>
               <img src="{{base64}}" alt="" class="base64">
-              <input type="file" name="" id="" class="form-control" (change)="getImagePath($event)">
+              <input type="file" name="{{base64}}" id="" class="form-control" (change)="getImagePath($event)">
             </div>
             <div class="col-sm">
               <label for="">Description</label><br>
