@@ -31,35 +31,42 @@
       </div>
       <div class="modal-body cartBox">
         <!-- Cart Items -->
-        <div class="row">
-          <div class="col-sm">
-            <label for="">Title</label><br>
-            <input type="text" name="" id="" placeholder="title" class="form-control">
+        <form action="" [formGroup]="form">
+          <div class="row">
+            <div class="col-sm">
+              <label for="">Title</label><br>
+              <input type="text" name="" id="" placeholder="title" class="form-control" formControlName="title">
+            </div>
+            <div class="col-sm">
+              <label for="">Price</label><br>
+              <input type="number" name="" id="" placeholder="price" class="form-control" formControlName="price">
+            </div>
+            <div class="col-sm">
+              <app-select [data]="categories" [title]="'Categories'" (selectedValue)="getSelectedCategory($event)">
+              </app-select>
+            </div>
           </div>
-          <div class="col-sm">
-            <label for="">Price</label><br>
-            <input type="number" name="" id="" placeholder="price" class="form-control">
+          <div class="row">
+            <div class="col-sm-4">
+              <label for="">Image</label>
+              <img src="{{base64}}" alt="" class="base64">
+              <input type="file" name="" id="" class="form-control" (change)="getImagePath($event)">
+            </div>
+            <div class="col-sm">
+              <label for="">Description</label><br>
+              <textarea name="" id="" cols="68" rows="5" formControlName="description" placeholder="type here ..."
+                class="form-control"></textarea>
+            </div>
           </div>
-          <div class="col-sm">
-            <app-select [data]="categories" [title]="'Categories'" (selectedValue)="filterCategory($event)">
-            </app-select>
+          <div class="row my-2">
+            <div class="col-sm"></div>
+            <div class="col-sm"></div>
+            <div class="col-sm d-flex justify-content-end">
+              <button class="btn btn-success" (click)="addProduct()" [disabled]="!form.valid">Add Product</button>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-4">
-            <label for="">Image</label><br>
-            <input type="file" name="" id="" class="form-control">
-          </div>
-          <div class="col-sm">
-            <label for="">Description</label><br>
-            <textarea name="" id="" cols="68" rows="5" placeholder="type here ..." class="form-control"></textarea>
-          </div>
-        </div>
-        <div class="row my-2">
-          <div class="col-sm"></div>
-          <div class="col-sm"></div>
-          <div class="col-sm d-flex justify-content-end"><button class="btn btn-success">Add Product</button></div>
-        </div>
+        </form>
+
       </div>
     </div>
   </div>

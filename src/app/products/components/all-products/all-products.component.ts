@@ -1,6 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { ProductsService } from '../../services/products/products.service';
 import { Product } from '../../models/product';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-all-products',
@@ -13,8 +14,17 @@ export class AllProductsComponent implements OnInit {
   categories: any[] = [];
   loading: boolean = false;
   cartProducts: any[] = [];
-  constructor(private service: ProductsService) { }
+  base64: any = '';
+  form!: FormGroup;
+  constructor(private service: ProductsService, private formBuilder: FormBuilder) { }
   ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      title: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      image: ['', [Validators.required]],
+      category: ['', [Validators.required]]
+    })
     this.getProducts();
     this.getCategories();
   }
@@ -43,16 +53,9 @@ export class AllProductsComponent implements OnInit {
   }
 
 
-  filterCategory(event: any) {
-    let value = event.target.value;
-
-    if (value == 'All') {
-      this.getProducts();
-    }
-    else {
-      this.getProductsCategory(value);
-    }
-    console.log(value);
+  getSelectedCategory(event: any) {
+    this.form.get('category')?.setValue(event.target.value);
+    console.log(this.form)
   }
   getProductsCategory(keyword: string) {
     this.loading = true;
@@ -78,5 +81,23 @@ export class AllProductsComponent implements OnInit {
       this.cartProducts.push(event);
       localStorage.setItem('cart', JSON.stringify(this.cartProducts));
     }
+  }
+  getImagePath(event: any) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.base64 = reader.result;
+      this.form.get('image')?.setValue('this.base64');
+      console.log(this.base64);
+
+    }
+  }
+  addProduct() {
+    const model = this.form.value;
+    this.service.createProduct(model).subscribe(res => {
+      console.log('add product done')
+    });
+    console.log(this.form)
   }
 }
