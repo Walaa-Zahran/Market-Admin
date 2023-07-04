@@ -1,0 +1,17 @@
+-Products
+	components:
+		-all  products
+		-products details
+	services:
+		-product.service
+-Carts
+	components:
+		-Cart
+	services:
+		-cart.service
+-shared
+	components:
+		-navbar
+		-select
+	services:
+		-shared.service

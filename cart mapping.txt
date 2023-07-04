@@ -1,0 +1,9 @@
+1- list all cart products == Done
+2- get items' price total == Done
+3- minus amount== Done
+4- plus amount== Done
+5- detect amount input change== Done
+6- clear cart change== Done
+7- get cart products length change== Done
+8- delete product change== Done
+9- send cart to backend api== Done

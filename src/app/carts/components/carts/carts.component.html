@@ -1,0 +1,96 @@
+<div class="cartBox">
+  <form action="" [formGroup]="form">
+    <div class="row">
+      <div class="col-md-3">
+        <label for="">Start Date</label>
+        <input type="date" class="form-control" formControlName="start">
+      </div>
+      <div class="col-md-3">
+        <label for="">End Date</label>
+        <input type="date" name="" id="" formControlName="end" class="form-control">
+      </div>
+      <div class="col-md-2 d-flex align-items-end"><button class="btn-success btn"
+          (click)="applyFilter()">Apply</button></div>
+    </div>
+  </form>
+  <table class="table table-striped">
+    <thead>
+      <tr class="text-center">
+        <th></th>
+        <th>Date</th>
+        <th>Quantity</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of carts;let i=index">
+        <td></td>
+        <td>{{item.date|date:'longDate'}}</td>
+        <td>{{item.products.length}}</td>
+        <td>
+          <button class="btn btn-danger " (click)="deleteCart(item.id)">Delete</button>
+          <button class="btn btn-primary mx-2" data-toggle="modal" data-target="#viewCart"
+            (click)="view(i)">View</button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="viewCart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 900px!important;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cart Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body cartBox">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Price</th>
+              <th style="width: 25%;">Quantity</th>
+              <th>Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of products;let i=index">
+              <td><img src="{{item.item.image}}" alt=""></td>
+              <td>{{item.item.title}} </td>
+              <td>{{item.item.price}} L.E</td>
+              <td>{{item.quantity}}</td>
+              <td>{{item.item.price*item.quantity}} L.E</td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
